@@ -1,0 +1,16 @@
+[consumer]
+    [kafka.config]
+        topic = "example_test_topic"
+        api_version_request = true
+        auto_offset_reset = "earliest"
+        bootstrap_servers  = "ip:port"
+        enable_auto_commit  = true
+        fetch_max_bytes = 1024000
+        go_application_rebalance_enable = false
+        go_events_channel_enable  = false
+        heartbeat_interval_ms = 3000
+        max_in_flight_requests_per_connection = 1
+        max_partition_fetch_bytes = 256000
+        max_poll_interval_ms = 120000
+        security_protocol = "plaintext"
+        session_timeout_ms = 30000
