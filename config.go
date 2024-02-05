@@ -11,8 +11,7 @@ const HandlerFlagKey flagKeyType = "_handler_flag_key_"
 type KafkaConfig = kafka.ConfigMap
 
 type Config struct {
-	Version     TypeVersion // 1, 2
-	Topic       string      // 指定 topic
+	Topic       string // 指定 topic
 	IsTestEnv   bool
 	KafkaConfig KafkaConfig
 }

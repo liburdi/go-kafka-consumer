@@ -8,9 +8,9 @@ import (
 	"sync"
 
 	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
+	"github.com/golang/glog"
+	"github.com/liburdi/go-kafka-consumer/event"
 	"github.com/pkg/errors"
-	"gitlab.weipaitang.com/go/zhenjin-consumer/event"
-	"gitlab.weipaitang.com/golang/log"
 )
 
 type handler struct {
@@ -26,7 +26,7 @@ func newHandler(isTestEnv bool) *handler {
 
 func (h *handler) register(flag string, handler event.EventHandler) {
 	if _, ok := h.handlers.Load(flag); ok {
-		log.Errorc("handler already exists", log.String("name", flag))
+		glog.Error("handler already exists")
 		return
 	}
 
@@ -58,7 +58,7 @@ func (h *handler) handler(topic string, msg *kafka.Message, handler ...event.Eve
 		}
 	}
 
-	log.WithField("zj_trace", task.TraceId).Infof("received: %v", task)
+	glog.Infof("received: %v", task)
 
 	ev := event.NewEvent(context.Background(), task.TaskName)
 	ev.ID = task.JobId
