@@ -4,8 +4,10 @@ import (
 	"github.com/spf13/viper"
 )
 
+const defaultFilePath string = "./config/config.toml"
+
 func Init() error {
-	viper.SetConfigFile("./config/config.toml")
+	viper.SetConfigFile(defaultFilePath)
 	err := viper.ReadInConfig()
 	if err != nil {
 		return err

@@ -2,13 +2,12 @@ package main
 
 import (
 	"context"
-	"time"
 
 	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
 	"github.com/golang/glog"
-	consumer "github.com/liburdi/go-kafka-consumer"
-	"github.com/liburdi/go-kafka-consumer/config"
-	"github.com/liburdi/go-kafka-consumer/event"
+	consumer "github.com/liburdi/kafka-consumer"
+	"github.com/liburdi/kafka-consumer/config"
+	"github.com/liburdi/kafka-consumer/event"
 	"github.com/spf13/viper"
 )
 
@@ -63,7 +62,6 @@ func main() {
 		glog.Error(err.Error())
 		return
 	}
-	time.Sleep(30 * time.Second)
 
 	defer func(c *consumer.Consumer) {
 		err := c.Stop()

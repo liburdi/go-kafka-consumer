@@ -9,7 +9,7 @@ import (
 
 	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
 	"github.com/golang/glog"
-	"github.com/liburdi/go-kafka-consumer/event"
+	"github.com/liburdi/kafka-consumer/event"
 	"github.com/pkg/errors"
 )
 
