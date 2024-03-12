@@ -8,7 +8,7 @@ import (
 
 	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
 	log "github.com/golang/glog"
-	"github.com/liburdi/go-kafka-consumer/event"
+	"github.com/liburdi/kafka-consumer/event"
 )
 
 type Consumer struct {
@@ -64,6 +64,7 @@ func (c *Consumer) newConsumer(flag string, handler KafkaConsumerHandler) error 
 	}
 
 	pkc.SetKey("group.id", kafka.ConfigValue(fmt.Sprintf("runner-c-%s", flag)))
+	pkc.SetKey("enable.auto.commit", kafka.ConfigValue(true))
 
 	cs, err := kafka.NewConsumer(&pkc)
 	if err != nil {
@@ -105,17 +106,15 @@ func (c *Consumer) newConsumer(flag string, handler KafkaConsumerHandler) error 
 
 // Stop  consumer stop
 func (c *Consumer) Stop() error {
-	defer close(c.exitCh)
-	defer c.counter.Wait()
-
+	c.counter.Wait()
 	c.consumers.Range(func(key, value any) bool {
 		if err := value.(*kafka.Consumer).Close(); err != nil {
-			log.Error("consumer: stop")
+			log.Error("consumer stop failed. err %s", err.Error())
 		}
 
 		return true
 	})
-
+	close(c.exitCh)
 	return nil
 }
 

@@ -1,4 +1,4 @@
-module github.com/liburdi/go-kafka-consumer
+module github.com/liburdi/kafka-consumer
 
 go 1.19
 
